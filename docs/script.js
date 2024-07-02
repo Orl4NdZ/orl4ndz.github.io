@@ -6,6 +6,18 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x1a0033);
 document.getElementById('scene-container').appendChild(renderer.domElement);
 
+document.querySelectorAll('.project').forEach(project => {
+    project.addEventListener('mouseenter', () => {
+        const description = project.querySelector('.project-description');
+        description.style.opacity = '1';
+    });
+
+    project.addEventListener('mouseleave', () => {
+        const description = project.querySelector('.project-description');
+        description.style.opacity = '0';
+    });
+});
+
 // Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
