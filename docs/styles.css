@@ -28,22 +28,23 @@ h1, h2 {
     text-align: center;
 }
 
-.columns {
-    display: flex;
-    justify-content: space-between;
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-}
-
-.column {
-    flex: 1;
 }
 
 .project {
     background-color: rgba(51, 0, 102, 0.7);
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
+    border: none;
+    cursor: pointer;
     transition: transform 0.3s ease;
+    text-align: left;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
 }
 
 .image-container {
@@ -68,8 +69,29 @@ h1, h2 {
     transform: scale(1.1);
 }
 
+.project h3 {
+    margin-top: 0;
+}
+
+.project-description {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(51, 0, 102, 0.9);
+    padding: 20px;
+    overflow-y: auto;
+    transition: opacity 0.3s ease;
+}
+
+.project:hover .project-description {
+    display: block;
+}
+
 @media (max-width: 768px) {
-    .columns {
-        flex-direction: column;
+    .project-grid {
+        grid-template-columns: 1fr;
     }
 }
