@@ -1,107 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orlandz's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="scene-container"></div>
-    <div class="content">
-        <h1>Orlandz's Lair</h1>
-        <h2>Tech Maniac, Software Enthusiast</h2>
-        
-        <div class="project-grid">
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 1" class="project-image">
-                </div>
-                <h3>Obsidian</h3>
-                <p class="project-description">Creazione di un Enciclopedia personale con risorse dedicate accessibili da ogni piattaforma</p>
+    <title>Form di Registrazione</title>
+    <link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  </head>
+  <body>
+    <h1>Form di Registrazione</h1>
+    
+    <div class="shaper">
+      <p>Per favore compila questo form &#128553</p>
+	   <div class="player-wrap">
+        <div id="audiowave"></div>
+        <div class="audio-controls">
+            <button type="button" class="btn-backward">
+                <i class="fa fa-step-backward"></i>
             </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 2" class="project-image">
-                </div>
-                <h3>Classic Simple Collection</h3>
-                <p class="project-description">Merging di 3 semplici giochi in C++ includendo la libreria raylib basati sugli ottimi tutorial di https://github.com/educ8s</p>
+            <button type="button" class="btn-toggle-pause">
+                <i class="fa fa-play"></i> <i class="fa fa-pause"></i>
             </button>
-            <!-- Add 10 more project buttons to complete the 6x2 grid -->
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 3" class="project-image">
-                </div>
-                <h3>Project 3</h3>
-                <p class="project-description">Brief description of Project 3</p>
+            <button type="button" class="btn-forward">
+                <i class="fa fa-step-forward"></i>
             </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 4" class="project-image">
-                </div>
-                <h3>Project 4</h3>
-                <p class="project-description">Brief description of Project 4</p>
+            <button type="button" class="btn-toggle-mute">
+                <i class="fa fa-volume-off"></i>
             </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 5" class="project-image">
-                </div>
-                <h3>Project 5</h3>
-                <p class="project-description">Brief description of Project 5</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 6" class="project-image">
-                </div>
-                <h3>Project 6</h3>
-                <p class="project-description">Brief description of Project 6</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 7" class="project-image">
-                </div>
-                <h3>Project 7</h3>
-                <p class="project-description">Brief description of Project 7</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 8" class="project-image">
-                </div>
-                <h3>Project 8</h3>
-                <p class="project-description">Brief description of Project 8</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 9" class="project-image">
-                </div>
-                <h3>Project 9</h3>
-                <p class="project-description">Brief description of Project 9</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 10" class="project-image">
-                </div>
-                <h3>Project 10</h3>
-                <p class="project-description">Brief description of Project 10</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 11" class="project-image">
-                </div>
-                <h3>Project 11</h3>
-                <p class="project-description">Brief description of Project 11</p>
-            </button>
-            <button class="project">
-                <div class="image-container">
-                    <img src="/api/placeholder/400/300" alt="Project 12" class="project-image">
-                </div>
-                <h3>Project 12</h3>
-                <p class="project-description">Brief description of Project 12</p>
+            <button type="button" class="btn-stop">
+                <i class="fa fa-stop"></i>
             </button>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
-</body>
+    <div id="waveform"></div>
+      <div style="border-radius: 5px">
+        <form action="process.php" method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <label for="first-name">Immetti il tuo nome: <input id="first-name" name="first-name" type="text" required /></label>
+            <label for="last-name">Immetti il tuo cognome: <input id="last-name" name="last-name" type="text" required /></label>
+            <label for="email">Immetti la tua mail: <input id="email" name="email" type="email" required /></label>
+            <label for="new-password">Crea una nuova password: <input id="new-password" name="new-password" type="password" pattern="[a-z0-5]{8,}" required /></label>
+          </fieldset>
+          <fieldset>
+            <legend>Tipo di account (richiesto)</legend>
+            <label for="personal-account"><input id="personal-account" type="radio" name="account-type" class="inline" checked /> Personale</label>
+            <label for="business-account"><input id="business-account" type="radio" name="account-type" class="inline" /> Business</label>
+          </fieldset>
+          <fieldset>
+            <label for="profile-picture">Carica una foto profilo:<input id="profile-picture" type="file" name="file" /></label>
+            <label for="age">Immetti la tua età: <input id="age" type="number" name="age" min="13" max="120" /></label>
+            <label for="referrer">Come ci hai trovato?
+              <select id="referrer" name="referrer">
+                <option value="">(seleziona uno)</option>
+                <option value="1">Quotidiano</option>
+                <option value="2">Canale YouTube</option>
+                <option value="3">Forum</option>
+                <option value="4">Other</option>
+              </select>
+            </label>
+            <label for="bio">A proposito di te:
+              <textarea id="bio" name="bio" rows="3" cols="30" placeholder="Nel bel mezz di cammin..."></textarea>
+            </label>
+          </fieldset>
+          <label for="terms-and-conditions">
+            <input class="inline" id="terms-and-conditions" type="checkbox" required name="terms-and-conditions" /> Accetto i  <a href="https://www.youtube.com/watch?v=uHgt8giw1LY">termini e condizioni</a>
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+	<script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="script.js"></script>
+  </body>
 </html>
