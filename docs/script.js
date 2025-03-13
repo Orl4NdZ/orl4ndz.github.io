@@ -17,7 +17,7 @@ var wavesurfer = WaveSurfer.create({
     skipLength: 5
 });
 
-wavesurfer.load('./mischluft.mp3');
+wavesurfer.load('https://github.com/Orl4NdZ/orl4ndz.github.io/raw/refs/heads/main/docs/docs_mischluft.mp3');
 
 $(".btn-toggle-pause").on("click", function() {
     wavesurfer.playPause();
