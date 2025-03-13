@@ -1,97 +1,190 @@
-body {
+html, body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #1a0033;
-    color: #fff;
-    overflow-x: hidden;
-}
+    padding: 0;
+  }
+  
 
-#scene-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.content {
-    position: relative;
-    z-index: 1;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-h1, h2 {
-    color: #b366ff;
-    text-align: center;
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.project {
-    background-color: rgba(51, 0, 102, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    text-align: left;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-}
-
-.image-container {
-    overflow: hidden;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
-
-.project-image {
-    width: 100%;
-    height: auto;
-    transition: filter 0.3s ease, transform 0.3s ease;
-    filter: brightness(50%);
-}
-
-.project:hover {
-    transform: scale(1.05);
-}
-
-.project:hover .project-image {
+  
+  .audiop{
+	  position: absolute;
+	  top: 40px;
+	  left: 40px;
+  }
+@keyframes crazySlide {
+  0% {
+    transform: rotate(0deg) scale(1) skew(0deg);
+    background-position: 0 0;
     filter: brightness(100%);
-    transform: scale(1.1);
+  }
+  25% {
+    transform: rotate(15deg) scale(1.2) skew(10deg);
+    background-position: 100px 50px;
+    filter:  brightness(150%);
+  }
+  50% {
+    transform: rotate(-20deg) scale(0.8) skew(-15deg);
+    background-position: -150px 100px;
+    filter: hue-rotate(180deg) brightness(80%);
+  }
+  75% {
+    transform: rotate(25deg) scale(1.4) skew(20deg);
+    background-position: 200px -100px;
+    filter:  brightness(130%);
+  }
+  100% {
+    transform: rotate(0deg) scale(1) skew(0deg);
+    background-position: 0 0;
+    filter:  brightness(100%);
+  }
 }
 
-.project h3 {
-    margin-top: 0;
+.shaper {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding-top: 120px;
+  text-align: center;
+  box-sizing: border-box;
+  background: gray url(WalterVibe-4x.gif) repeat;
+  animation: 
+    crazySlide 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate, 
+    shake 2.5s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 50px rgba(0, 255, 0, 0.5), 0 0 70px rgba(0, 0, 255, 0.3);
+  overflow: hidden;
+  position: relative;
 }
 
-.project-description {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(51, 0, 102, 0.9);
-    padding: 20px;
-    overflow-y: auto;
-    transition: opacity 0.3s ease;
+audio:hover, audio:focus, audio:active
+{
+-webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-webkit-transform: scale(1.05);
+-moz-transform: scale(1.05);
+transform: scale(1.05);
 }
 
-.project:hover .project-description {
-    display: block;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) translateY(3px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px) translateY(-3px); }
 }
 
-@media (max-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr;
+/* Add a pseudo-element for extra craziness */
+.shaper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,0,255,0.5), transparent);
+  animation: glitter 1s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes glitter {
+  0% { opacity: 0.3; transform: scale(1); }
+  100% { opacity: 0.7; transform: scale(1.2); }
+}
+  .shaper h1 {
+    font-family: sans-serif;
+    font-size: 80px;
+    color: white;
+  }
+  
+  .shaper h2 {
+    font-family: sans-serif;
+    font-size: 40px;
+    color: white;
+  }
+  
+  @keyframes slide {
+    from {
+      background-position: 0 0;
     }
-}
+    to {
+      background-position: 512px 512px;
+    }
+  }
+  
+  body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    background-color: #09090a;
+    color: #f5f6f7;
+    font-family: Tahoma;
+    font-size: 16px;
+    
+  }
+  
+  h1, p {
+    margin: 1em auto;
+    text-align: center;
+    font-weight: bolder;
+	color: navy;
+  }
+  
+  form {
+    width: 90%;
+    max-width: 400px;
+	padding: 2rem;
+    margin: 2rem auto;
+    padding-bottom: 2em;
+
+
+  }
+  
+  fieldset {
+    border: none;
+    padding: 2rem 0;
+    border-bottom: 3px solid #3b3b4f;
+  }
+  
+  fieldset:last-of-type {
+    border-bottom: none;
+  }
+  
+  label {
+    display: block;
+    margin: 0.5rem 0;
+	color: yellow;
+	
+  }
+  
+  input,
+  textarea,
+  select {
+    width: calc(50% - 20px); 
+    min-height: 2em;
+    padding: 5px;
+    box-sizing: border-box; 
+  }
+  
+  input, textarea {
+    background-color: #0a0a23;
+    border: 1px solid #0a0a23;
+    color: #ffffff;
+  }
+  
+  .inline {
+    width: unset;
+    margin: 0 0.5em 0 0;
+    vertical-align: middle;
+  }
+  
+  input[type="submit"] {
+    display: block;
+    width: 60%;
+    margin: 1em auto;
+    height: 2em;
+    font-size: 1.1rem;
+    background-color: #3b3b4f;
+    border-color: white;
+    min-width: 300px;
+  }
+  
+  input[type="file"] {
+    padding: 1px 2px;
+  }
