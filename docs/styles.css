@@ -45,7 +45,7 @@ html, body {
   padding-top: 120px;
   text-align: center;
   box-sizing: border-box;
-  background: gray url(https://github.com/Orl4NdZ/orl4ndz.github.io/blob/main/docs/WalterVibe-4x.gif?raw=true) repeat;
+  background: gray url(https://cdn.7tv.app/emote/01GSPAFDM000087DXYC0P7ZVPF/4x.avif) repeat;
   animation: 
     crazySlide 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate, 
     shake 2.5s ease-in-out infinite;
