@@ -1,77 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>Form di Registrazione</title>
-    <link href="./styles.css" type="text/css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-  </head>
-  <body>
-    <h1>Form di Registrazione</h1>
-    
-    <div class="shaper">
-      <p>Per favore compila questo form &#128553</p>
-	    <audio controls source src="./mischluft.mp3"></audio>
-	   <div class="player-wrap">
-        <div id="audiowave"></div>
-        <div class="audio-controls">
-            <button type="button" class="btn-backward">
-                <i class="fa fa-step-backward"></i>
-            </button>
-            <button type="button" class="btn-toggle-pause">
-                <i class="fa fa-play"></i> <i class="fa fa-pause"></i>
-            </button>
-            <button type="button" class="btn-forward">
-                <i class="fa fa-step-forward"></i>
-            </button>
-            <button type="button" class="btn-toggle-mute">
-                <i class="fa fa-volume-off"></i>
-            </button>
-            <button type="button" class="btn-stop">
-                <i class="fa fa-stop"></i>
-            </button>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFA Leaderboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920') center/cover fixed;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #aaa;
+            letter-spacing: 2px;
+        }
+
+        .leaderboard {
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .leaderboard-header {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px 120px;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            color: #888;
+            border-bottom: 2px solid #ff4444;
+        }
+
+        .player-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px 120px;
+            padding: 25px 30px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        .player-row:nth-child(2) { animation-delay: 0.1s; }
+        .player-row:nth-child(3) { animation-delay: 0.2s; }
+        .player-row:nth-child(4) { animation-delay: 0.3s; }
+        .player-row:nth-child(5) { animation-delay: 0.4s; }
+        .player-row:nth-child(6) { animation-delay: 0.5s; }
+        .player-row:nth-child(7) { animation-delay: 0.6s; }
+        .player-row:nth-child(8) { animation-delay: 0.7s; }
+        .player-row:nth-child(9) { animation-delay: 0.8s; }
+        .player-row:nth-child(10) { animation-delay: 0.9s; }
+
+        .player-row:hover {
+            background: rgba(255, 68, 68, 0.1);
+            transform: translateX(10px);
+            border-left: 4px solid #ff4444;
+        }
+
+        .rank {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: #666;
+        }
+
+        .rank.top-3 {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .rank.rank-2 {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rank.rank-3 {
+            background: linear-gradient(135deg, #cd7f32, #e89968);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .player-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .player-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid rgba(255, 68, 68, 0.5);
+        }
+
+        .stat {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .kills {
+            color: #4CAF50;
+        }
+
+        .deaths {
+            color: #ff4444;
+        }
+
+        .kd {
+            color: #00bcd4;
+            font-weight: 900;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .leaderboard-header,
+            .player-row {
+                grid-template-columns: 50px 1fr 80px 80px 80px;
+                padding: 15px 15px;
+                font-size: 0.85em;
+            }
+
+            .player-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FFA LEADERBOARD</h1>
+            <div class="subtitle">Free-For-All Rankings</div>
+        </div>
+
+        <div class="leaderboard">
+            <div class="leaderboard-header">
+                <div>RANK</div>
+                <div>PLAYER</div>
+                <div>KILLS</div>
+                <div>DEATHS</div>
+                <div>K/D</div>
+            </div>
+
+            <!-- EDIT BELOW: Add or modify player rows -->
+            <div class="player-row">
+                <div class="rank top-3 rank-1">#1</div>
+                <div class="player-name">
+                    <div class="player-avatar">SN</div>
+                    <span>SnipeKing</span>
+                </div>
+                <div class="stat kills">245</div>
+                <div class="stat deaths">89</div>
+                <div class="stat kd">2.75</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank top-3 rank-2">#2</div>
+                <div class="player-name">
+                    <div class="player-avatar">RX</div>
+                    <span>ReaperX</span>
+                </div>
+                <div class="stat kills">238</div>
+                <div class="stat deaths">95</div>
+                <div class="stat kd">2.51</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank top-3 rank-3">#3</div>
+                <div class="player-name">
+                    <div class="player-avatar">PH</div>
+                    <span>PhantomAce</span>
+                </div>
+                <div class="stat kills">220</div>
+                <div class="stat deaths">92</div>
+                <div class="stat kd">2.39</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#4</div>
+                <div class="player-name">
+                    <div class="player-avatar">TH</div>
+                    <span>ThunderStrike</span>
+                </div>
+                <div class="stat kills">198</div>
+                <div class="stat deaths">98</div>
+                <div class="stat kd">2.02</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#5</div>
+                <div class="player-name">
+                    <div class="player-avatar">VX</div>
+                    <span>VortexWarrior</span>
+                </div>
+                <div class="stat kills">185</div>
+                <div class="stat deaths">95</div>
+                <div class="stat kd">1.95</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#6</div>
+                <div class="player-name">
+                    <div class="player-avatar">BZ</div>
+                    <span>BlazeRunner</span>
+                </div>
+                <div class="stat kills">172</div>
+                <div class="stat deaths">102</div>
+                <div class="stat kd">1.69</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#7</div>
+                <div class="player-name">
+                    <div class="player-avatar">NV</div>
+                    <span>NovaForce</span>
+                </div>
+                <div class="stat kills">165</div>
+                <div class="stat deaths">108</div>
+                <div class="stat kd">1.53</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#8</div>
+                <div class="player-name">
+                    <div class="player-avatar">SH</div>
+                    <span>ShadowHunter</span>
+                </div>
+                <div class="stat kills">158</div>
+                <div class="stat deaths">110</div>
+                <div class="stat kd">1.44</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#9</div>
+                <div class="player-name">
+                    <div class="player-avatar">IR</div>
+                    <span>IronFist</span>
+                </div>
+                <div class="stat kills">142</div>
+                <div class="stat deaths">115</div>
+                <div class="stat kd">1.23</div>
+            </div>
+
+            <div class="player-row">
+                <div class="rank">#10</div>
+                <div class="player-name">
+                    <div class="player-avatar">ST</div>
+                    <span>StormBreaker</span>
+                </div>
+                <div class="stat kills">135</div>
+                <div class="stat deaths">118</div>
+                <div class="stat kd">1.14</div>
+            </div>
+            <!-- EDIT ABOVE -->
         </div>
     </div>
-    <div id="waveform"></div>
-      <div style="border-radius: 5px">
-        <form action="process.php" method="POST" enctype="multipart/form-data">
-          <fieldset>
-            <label for="first-name">Immetti il tuo nome: <input id="first-name" name="first-name" type="text" required /></label>
-            <label for="last-name">Immetti il tuo cognome: <input id="last-name" name="last-name" type="text" required /></label>
-            <label for="email">Immetti la tua mail: <input id="email" name="email" type="email" required /></label>
-            <label for="new-password">Crea una nuova password: <input id="new-password" name="new-password" type="password" pattern="[a-z0-5]{8,}" required /></label>
-          </fieldset>
-          <fieldset>
-            <legend>Tipo di account (richiesto)</legend>
-            <label for="personal-account"><input id="personal-account" type="radio" name="account-type" class="inline" checked /> Personale</label>
-            <label for="business-account"><input id="business-account" type="radio" name="account-type" class="inline" /> Business</label>
-          </fieldset>
-          <fieldset>
-            <label for="profile-picture">Carica una foto profilo:<input id="profile-picture" type="file" name="file" /></label>
-            <label for="age">Immetti la tua età: <input id="age" type="number" name="age" min="13" max="120" /></label>
-            <label for="referrer">Come ci hai trovato?
-              <select id="referrer" name="referrer">
-                <option value="">(seleziona uno)</option>
-                <option value="1">Quotidiano</option>
-                <option value="2">Canale YouTube</option>
-                <option value="3">Forum</option>
-                <option value="4">Other</option>
-              </select>
-            </label>
-            <label for="bio">A proposito di te:
-              <textarea id="bio" name="bio" rows="3" cols="30" placeholder="Nel bel mezz di cammin..."></textarea>
-            </label>
-          </fieldset>
-          <label for="terms-and-conditions">
-            <input class="inline" id="terms-and-conditions" type="checkbox" required name="terms-and-conditions" /> Accetto i  <a href="https://www.youtube.com/watch?v=uHgt8giw1LY">termini e condizioni</a>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    </div>
-	<script src="https://unpkg.com/wavesurfer.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-	<script src="./script.js"></script>
-  </body>
+</body>
 </html>
